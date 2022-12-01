@@ -2,6 +2,10 @@
 const express = require("express");
 const cors = require("cors");
 
+//import routers
+
+const itemRouter = require("./item/item.router");
+
 // Porta do servidor
 const port = process.env.PORT || 3000;
 
@@ -19,7 +23,9 @@ async function main() {
   });
 
   // Inicialização dos `Routers`
-  // ...
+  app.use("/item", itemRouter);
+  //EXERCICIO: criar router de category, com os endpoints ReadAll e Create
+  // Category -> terá apenas name
 
   // Inicia o servidor
   app.listen(port, () => {
