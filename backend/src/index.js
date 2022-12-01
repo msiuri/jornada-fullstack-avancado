@@ -5,11 +5,15 @@ const cors = require("cors");
 //import routers
 
 const itemRouter = require("./item/item.router");
+const categoryRouter = require("./category/category.router");
+const { connectToDatabase } = require("./db/database.helper");
 
 // Porta do servidor
 const port = process.env.PORT || 3000;
 
 async function main() {
+  await connectToDatabase();
+
   // Cria o servidor `express`
   const app = express();
 
@@ -26,6 +30,7 @@ async function main() {
   app.use("/item", itemRouter);
   //EXERCICIO: criar router de category, com os endpoints ReadAll e Create
   // Category -> terá apenas name
+  app.use("/category", categoryRouter);
 
   // Inicia o servidor
   app.listen(port, () => {
