@@ -7,13 +7,13 @@ const findAll = async (req, res) => {
   res.send(items);
 };
 
-const findById = (req, res) => {
+const findById = async (req, res) => {
   const id = req.params.id;
   if (!isObjectIdValid(id)) {
     return res.status(400).send({ message: "Id Inválido" });
   }
 
-  const item = {};
+  const item = await service.findById(id);
 
   if (!item) {
     return res.status(404).send({ message: "item invalido" });
@@ -32,7 +32,7 @@ const create = async (req, res) => {
 
   res.status(201).send(newItem);
 };
-const update = (req, res) => {
+const update = async (req, res) => {
   const id = req.params.id;
 
   if (!isObjectIdValid(id)) {
@@ -45,7 +45,7 @@ const update = (req, res) => {
     return res.status(400).send({ message: "dados inválidos" });
   }
 
-  const updatedItem = {};
+  const updatedItem = await service.update(id, item);
 
   if (!updatedItem) {
     return res.send(404).send({ message: "item nao encontrado" });
@@ -53,14 +53,14 @@ const update = (req, res) => {
 
   res.send({ message: "success" });
 };
-const deleteById = (req, res) => {
+const deleteById = async (req, res) => {
   const id = req.params.id;
 
   if (!isObjectIdValid(id)) {
     return res.status(400).send({ message: "id invalid" });
   }
 
-  const deletedItem = {};
+  const deletedItem = await service.deleteById(id);
 
   if (!deletedItem) {
     return res.status(400).send({ message: "item nao encontrado" });
