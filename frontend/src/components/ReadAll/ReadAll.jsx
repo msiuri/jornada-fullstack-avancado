@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Api } from "../../api/api";
 import ItemCard from "../ItemCard/ItemCard";
-import "./ReadAll.css"
+import "./ReadAll.css";
 
 function ReadAll() {
   const [itens, setItens] = useState();
 
   async function realizarRequisicao() {
-    const readAllUrl = Api.itens.readAll();
+    const readAllUrl = Api.item.readAll();
 
     const response = await Api.buildApiGetRequest(readAllUrl);
 
@@ -28,10 +28,10 @@ function ReadAll() {
   return (
     <div className="ReadAll">
       {itens.map(function (item, index) {
-        return <ItemCard key={`item-card-${index}`} item={item} />
+        return <ItemCard key={`item-card-${index}`} item={item} />;
       })}
     </div>
-  )
+  );
 }
 
 export default ReadAll;

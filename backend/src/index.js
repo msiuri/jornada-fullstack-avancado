@@ -14,6 +14,8 @@ const port = process.env.PORT || 3000;
 async function main() {
   await connectToDatabase();
 
+  
+
   // Cria o servidor `express`
   const app = express();
 
@@ -28,8 +30,6 @@ async function main() {
 
   // Inicialização dos `Routers`
   app.use("/item", itemRouter);
-  //EXERCICIO: criar router de category, com os endpoints ReadAll e Create
-  // Category -> terá apenas name
   app.use("/category", categoryRouter);
 
   // Inicia o servidor

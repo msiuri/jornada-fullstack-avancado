@@ -1,48 +1,24 @@
-const { isObjectIdValid } = require("../db/database.helper");
+const service = require("./category.service");
 
 //
-const findAll = (req, res) => {
-  const id = req.params.id;
-  if (!isObjectIdValid(id)) {
-    return res.status(400).send({ message: "id invalido" });
-  }
+const findAll = async (req, res) => {
+  const categories = await service.findAll();
 
-  const category = {};
-
-  if (!category) {
-    return res.status(404).send({ message: "item invalido" });
-  }
-
-  res.send(category);
+  res.send(categories);
 };
 
-const findById = (req, res) => {
-  const id = req.params.id;
-  if (!isObjectIdValid(id)) {
-    return res.status(400).send({ message: "id invalido" });
-  }
-
-  const category = {};
-
-  if (!category) {
-    return res.status(404).send({ message: "item invalido" });
-  }
-  res.send(category);
-};
-
-const create = (req, res) => {
+const create = async (req, res) => {
   const category = req.body;
   if (!category || !category.name) {
     return res.status(400).send({ message: "dados invalidos" });
   }
 
-  const newCategory = {};
+  const newCategory = await service.create(category);
 
   res.status(201).send(newCategory);
 };
 
 module.exports = {
   findAll,
-  findById,
   create,
 };
